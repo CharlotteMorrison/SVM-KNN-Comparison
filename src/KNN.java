@@ -1,11 +1,14 @@
 import java.io.File;
+import java.util.Map;
 
 import net.sf.javaml.classification.Classifier;
 import net.sf.javaml.classification.KNearestNeighbors;
+import net.sf.javaml.classification.evaluation.EvaluateDataset;
+import net.sf.javaml.classification.evaluation.PerformanceMeasure;
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.Instance;
 import net.sf.javaml.tools.data.ARFFHandler;
-import net.sf.javaml.tools.data.FileHandler;
+
 
 
 
@@ -16,13 +19,19 @@ public class KNN {
     
     public KNN () throws Exception {
 
+    }
+    
+    public void runKNN (int n) throws Exception{ //# of neighbors
+    	correct = 0;
+    	wrong = 0;
+    	
         //Load training data set.
     	
         Dataset data = ARFFHandler.loadARFF(new File("src/files/train.arff"), 0 );
 
-        //Construct a KNN classifier that uses 5 neighbors to make a decision.
+        //Construct a KNN classifier that uses n neighbors to make a decision.
          
-        Classifier knn = new KNearestNeighbors(5);
+        Classifier knn = new KNearestNeighbors(n);
         knn.buildClassifier(data);
 
         //Load the data set for testing
@@ -38,8 +47,12 @@ public class KNN {
             else
                 wrong++;
         }
-        System.out.println("Correct predictions  " + correct);
-        System.out.println("Wrong predictions " + wrong);
+
+        /*
+        Map<Object, PerformanceMeasure> pm = EvaluateDataset.testDataset(knn, dataForClassification);
+        for (Object o : pm.keySet())
+            System.out.println(o + ": " + pm.get(o).getAccuracy());        
+		*/
 
     }
 

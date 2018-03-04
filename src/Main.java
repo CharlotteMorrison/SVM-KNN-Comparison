@@ -19,13 +19,25 @@ import java.io.*;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		
-	FileSplitter files = new FileSplitter("src/files/wine.arff");
-
-	KNN knn = new KNN();
 	
+		BufferedWriter writer = new BufferedWriter(new FileWriter("src/files/output.csv"));
+		FileSplitter data = new FileSplitter();
+		KNN knn = new KNN();
+		SVM svm = new SVM();
 
-
+		writer.write("Test #,K Value,KNN Right, KNN Wrong, SVM Right, SVM Wrong\n" );
+		for(int k = 5; k <= 20; k += 5) {
+			int x = 0;
+			while (x < 10) {
+				data.split("src/files/wine.arff");
+				knn.runKNN(k);
+				svm.runSVM();					
+				// write to a csv file.
+				writer.write(x +"," + k + "," + knn.correct + "," + knn.wrong + ", " + svm.correct + "," + svm.wrong + "\n");
+				x++;
+			}		
+		}
+		writer.close();
 	}
 
 }

@@ -11,8 +11,12 @@ public class FileSplitter {
 	Instances test = null;
 	Instances train = null;
 	
-	public FileSplitter(String dataFile) {
-		//String dataFile = "src/files/wine.arff";
+	public FileSplitter() {
+		
+
+	}
+	
+	public void split(String dataFile) {
 		Instances data;
 		try {
 			data = (new DataSource(dataFile)).getDataSet();
@@ -31,11 +35,10 @@ public class FileSplitter {
 			writer = new BufferedWriter(new FileWriter("src/files/test.arff"));
 			writer.write(test.toString());
 			writer.flush();
-			writer.close();	
-				
+			writer.close();					
 		
 		} catch (Exception e) {
 			System.out.println("error");
-		}
+		}		
 	}
 }
