@@ -4,28 +4,30 @@ import net.sf.javaml.classification.Classifier;
 import net.sf.javaml.classification.KNearestNeighbors;
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.Instance;
+import net.sf.javaml.tools.data.ARFFHandler;
 import net.sf.javaml.tools.data.FileHandler;
 
 
 
 public class KNN {
 
-    public KNN (String trainingData, String testData, int classLabel, String splitter) throws Exception {
+    //counters
+    int correct = 0, wrong = 0;
+    
+    public KNN () throws Exception {
 
         //Load training data set.
     	
-        Dataset data = FileHandler.loadDataset(new File(trainingData), classLabel, splitter);
-        
+        Dataset data = ARFFHandler.loadARFF(new File("src/files/train.arff"), 0 );
+
         //Construct a KNN classifier that uses 5 neighbors to make a decision.
          
         Classifier knn = new KNearestNeighbors(5);
         knn.buildClassifier(data);
 
         //Load the data set for testing
-        Dataset dataForClassification = FileHandler.loadDataset(new File(testData), classLabel, splitter);
+        Dataset dataForClassification = ARFFHandler.loadARFF(new File("src/files/test.arff"), 0 );
 
-        //counters
-        int correct = 0, wrong = 0;
         
         //classify instances and then check for correct values
         for (Instance inst : dataForClassification) {

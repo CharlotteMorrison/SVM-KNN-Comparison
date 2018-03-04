@@ -1,8 +1,13 @@
 import java.util.*;
+import weka.classifiers.Classifier;
+import weka.classifiers.trees.J48;
+import weka.classifiers.Evaluation;
+import weka.core.Instances;
+import weka.core.converters.ConverterUtils.DataSource;
 
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.tools.data.FileHandler;
-
+import java.util.*;
 import java.io.*;
 
 /**
@@ -13,25 +18,14 @@ import java.io.*;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
-		
+	FileSplitter files = new FileSplitter("src/files/wine.arff");
 
-		/*
-		try {
-			//read in the dataset
-			Dataset data = FileHandler.loadDataset(new File ("src/files/wine.data"), 0, ",");
-			System.out.println(data);
-			
-			//write the dataset to a file
-			FileHandler.exportDataset(data,new File("src/files/output.data"));
-			
-			//reread the ouputed file
-			Dataset data = FileHandler.loadDataset(new File("src/files/output.txt"), 0,"\t");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		*/
+	KNN knn = new KNN();
+	
+
+
 	}
 
 }
