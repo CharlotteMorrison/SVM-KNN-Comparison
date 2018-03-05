@@ -25,7 +25,7 @@ public class Main {
 		KNN knn = new KNN();
 		SVM svm = new SVM();
 
-		writer.write("Test #,K Value,KNN Right, KNN Wrong, SVM Right, SVM Wrong\n" );
+		writer.write("Test #,K Value,KNN Right, KNN Wrong, KNN False +, KNN Avg. Accuracy, SVM Right, SVM Wrong, SVM False +, SVM Accuracy\n" );
 		for(int k = 5; k <= 20; k += 5) {
 			int x = 0;
 			while (x < 10) {
@@ -33,7 +33,8 @@ public class Main {
 				knn.runKNN(k);
 				svm.runSVM();					
 				// write to a csv file.
-				writer.write(x +"," + k + "," + knn.correct + "," + knn.wrong + ", " + svm.correct + "," + svm.wrong + "\n");
+				writer.write(x +"," + k + "," + knn.correct + "," + knn.wrong + "," + knn.falsePositives + "," + knn.avgAccuracy + "," 
+				+ svm.correct + "," + svm.wrong + "," + svm.falsePositives + "," + svm.avgAccuracy + "\n");
 				x++;
 			}		
 		}
